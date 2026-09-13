@@ -175,6 +175,27 @@ indexed. For "thousands of records" this is adequate; the next real steps, in
 order, would be: cursor-based pagination for very large offsets, read replicas
 for reporting, and moving order totals to a job if order lines got much heavier.
 
+## AI Usage
+
+This project was developed with AI coding assistance, used as a pair
+programmer. To keep it accountable rather than a black box:
+
+- Every generated file was reviewed and adapted to the chosen architecture and
+  conventions before being accepted.
+- The solution was validated empirically, not trusted by reading alone: the API
+  was exercised with scripted requests covering happy paths **and** failure
+  cases (duplicate email, invalid transitions, FK-protected deletes, price
+  snapshot behavior), backend unit tests run in CI-style, and the whole stack
+  was rebuilt from a clean clone of this repo to prove the setup instructions
+  work from zero.
+- Where AI tools are weakest (recent framework changes), the primary source
+  was checked instead of training knowledge: the Next.js 16 behavior was read
+  from its bundled docs, which is also how a real styling bug caused by stale
+  scaffold defaults was diagnosed and fixed.
+- The business decisions above (snapshot pricing, terminal order states,
+  deletion policy) were made deliberately against the open requirements, not
+  adopted from whatever the tool suggested first.
+
 ## What I would change for production
 
 - **Authentication/authorization** (intentionally out of scope here).

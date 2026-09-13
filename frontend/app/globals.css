@@ -1,13 +1,6 @@
 @import "tailwindcss";
 
-/*
- * Fixed light theme. The create-next-app scaffold shipped a dark-mode media
- * query that flipped the palette based on the OS setting. Combined with the
- * light utility classes used across the UI it made text nearly unreadable,
- * and user agents auto-darkened native form controls (inputs/selects) while
- * the text color stayed dark.
- * `color-scheme: light` tells the UA to always render controls in light mode.
- */
+/* Fixed light theme: color-scheme keeps native form controls light too. */
 :root {
   color-scheme: light;
 }
@@ -18,7 +11,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Keep native form controls legible regardless of the OS color scheme. */
 input,
 select,
 textarea {

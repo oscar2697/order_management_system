@@ -43,10 +43,7 @@ export class ProductsService {
     return this.products.save(this.products.create(dto));
   }
 
-  /**
-   * Editing a product NEVER affects existing orders: order items store a
-   * snapshot of the product name and unit price taken at creation time.
-   */
+  /** Editing a product never affects existing orders (items snapshotted). */
   async update(id: number, dto: UpdateProductDto): Promise<Product> {
     const product = await this.findOne(id);
     Object.assign(product, dto);

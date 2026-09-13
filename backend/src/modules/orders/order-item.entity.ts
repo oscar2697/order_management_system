@@ -9,9 +9,8 @@ import { Product, decimalToNumber } from '../products/product.entity';
 import { Order } from './order.entity';
 
 /**
- * Line item of an order. Both the product name and the unit price are
- * snapshots copied from the product at order creation time, so later
- * product edits never mutate historical orders (see README decisions).
+ * Order line. Name and unit price are snapshots taken at creation time,
+ * so later product edits never mutate historical orders (see README).
  */
 @Entity('order_items')
 export class OrderItem {
@@ -28,10 +27,7 @@ export class OrderItem {
   @Column({ name: 'order_id' })
   orderId: number;
 
-  /**
-   * RESTRICT: a product referenced by any order cannot be deleted,
-   * protecting historical order data.
-   */
+  /** RESTRICT protects orders: a referenced product cannot be deleted. */
   @ManyToOne(() => Product, (product) => product.orderItems, {
     nullable: false,
     onDelete: 'RESTRICT',

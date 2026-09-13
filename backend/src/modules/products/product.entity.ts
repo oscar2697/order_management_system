@@ -8,10 +8,7 @@ import {
 } from 'typeorm';
 import { OrderItem } from '../orders/order-item.entity';
 
-/**
- * DECIMAL comes back from mysql2 as a string; this transformer keeps the
- * public API numeric while the DB keeps exact fixed-point precision.
- */
+/** DECIMAL arrives as a string from mysql2; expose it as a number in the API. */
 export const decimalToNumber: {
   to: (v: number) => number;
   from: (v: string | null) => number | null;

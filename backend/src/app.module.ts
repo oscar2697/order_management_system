@@ -20,11 +20,10 @@ import { ProductsModule } from './modules/products/products.module';
         password: config.get<string>('DB_PASSWORD', 'apppass'),
         database: config.get<string>('DB_NAME', 'order_management'),
         autoLoadEntities: true,
-        // Schema is managed exclusively through migrations, never sync.
+        // Schema only via migrations; pending ones are applied on boot so a
+        // fresh `docker compose up` needs no manual setup.
         synchronize: false,
         migrations: [join(__dirname, 'database', 'migrations', '*{.ts,.js}')],
-        // Pending migrations run automatically on boot so a fresh
-        // `docker compose up` prepares the schema without extra steps.
         migrationsRun: true,
       }),
     }),
