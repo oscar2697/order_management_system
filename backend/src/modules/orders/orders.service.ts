@@ -54,9 +54,9 @@ export class OrdersService {
   }
 
   /**
-   * Creates an order inside a transaction so a failure never leaves a
-   * half-persisted order. Prices and product names are snapshotted here;
-   * the persisted total is derived from those snapshots.
+   * Transactional so a failure never leaves a half-persisted order.
+   * Prices and product names are snapshotted here; the persisted total
+   * is derived from those snapshots.
    */
   async create(dto: CreateOrderDto): Promise<Order> {
     const customer = await this.customers.findOne({
@@ -107,10 +107,7 @@ export class OrdersService {
     return this.findOne(saved.id);
   }
 
-  /**
-   * State machine: pending -> completed | cancelled. Completed and
-   * cancelled are terminal.
-   */
+  /** State machine: pending -> completed | cancelled; both terminal. */
   async updateStatus(id: number, dto: UpdateOrderStatusDto): Promise<Order> {
     const order = await this.orders.findOne({ where: { id } });
     if (!order) {

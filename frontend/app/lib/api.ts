@@ -1,6 +1,5 @@
-// Server-side API client. All mutations flow through Server Actions, and
-// pages fetch in Server Components, so this module is never bundled to the
-// browser: inside Docker it can use the internal service URL.
+// Server-side only API client (Server Components + Server Actions), so inside
+// Docker it can use the internal network address instead of localhost.
 const API_BASE =
   process.env.API_INTERNAL_URL ??
   process.env.NEXT_PUBLIC_API_URL ??

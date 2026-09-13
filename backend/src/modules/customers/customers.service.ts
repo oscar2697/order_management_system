@@ -67,7 +67,7 @@ export class CustomersService {
     try {
       await this.customers.remove(customer);
     } catch (error) {
-      // FK is RESTRICT: deleting a customer with orders is rejected by MySQL.
+      // FK is RESTRICT: MySQL rejects deleting a customer that has orders.
       if (
         error instanceof QueryFailedError &&
         (error.driverError as { code?: string }).code?.startsWith(
