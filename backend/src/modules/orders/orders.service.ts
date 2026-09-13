@@ -16,7 +16,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { ListOrdersDto } from './dto/list-orders.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { OrderItem } from './order-item.entity';
-import { ORDER_TRANSITIONS, Order, OrderStatus } from './order.entity';
+import { ORDER_TRANSITIONS, Order } from './order.entity';
 import { calculateOrderTotal, canTransition } from './order.rules';
 
 @Injectable()
@@ -75,11 +75,15 @@ export class OrdersService {
       );
     }
 
-    const products = await this.products.findBy({ id: In([...quantities.keys()]) });
+    const products = await this.products.findBy({
+      id: In([...quantities.keys()]),
+    });
     const foundIds = new Set(products.map((p) => p.id));
     const missing = [...quantities.keys()].filter((id) => !foundIds.has(id));
     if (missing.length > 0) {
-      throw new BadRequestException(`Unknown product id(s): ${missing.join(', ')}`);
+      throw new BadRequestException(
+        `Unknown product id(s): ${missing.join(', ')}`,
+      );
     }
 
     const items: OrderItem[] = products.map((product) => {
