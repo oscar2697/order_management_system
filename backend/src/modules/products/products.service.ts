@@ -61,7 +61,9 @@ export class ProductsService {
       // FK is RESTRICT: deleting a product referenced by any order fails.
       if (
         error instanceof QueryFailedError &&
-        (error.driverError as { code?: string }).code?.startsWith('ER_ROW_IS_REFERENCED')
+        (error.driverError as { code?: string }).code?.startsWith(
+          'ER_ROW_IS_REFERENCED',
+        )
       ) {
         throw new ConflictException(
           'Product cannot be deleted because it appears in existing orders',

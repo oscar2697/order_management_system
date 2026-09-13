@@ -70,7 +70,9 @@ export class CustomersService {
       // FK is RESTRICT: deleting a customer with orders is rejected by MySQL.
       if (
         error instanceof QueryFailedError &&
-        (error.driverError as { code?: string }).code?.startsWith(MYSQL_FK_VIOLATION)
+        (error.driverError as { code?: string }).code?.startsWith(
+          MYSQL_FK_VIOLATION,
+        )
       ) {
         throw new ConflictException(
           'Customer cannot be deleted because it has associated orders',

@@ -41,7 +41,9 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update a product (existing orders keep the old price)' })
+  @ApiOperation({
+    summary: 'Update a product (existing orders keep the old price)',
+  })
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateProductDto) {
     return this.productsService.update(id, dto);
   }
