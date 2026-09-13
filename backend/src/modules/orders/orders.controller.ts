@@ -32,13 +32,17 @@ export class OrdersController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create an order (snapshots prices at creation time)' })
+  @ApiOperation({
+    summary: 'Create an order (snapshots prices at creation time)',
+  })
   create(@Body() dto: CreateOrderDto) {
     return this.ordersService.create(dto);
   }
 
   @Patch(':id/status')
-  @ApiOperation({ summary: 'Change order status (pending -> completed | cancelled)' })
+  @ApiOperation({
+    summary: 'Change order status (pending -> completed | cancelled)',
+  })
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateOrderStatusDto,

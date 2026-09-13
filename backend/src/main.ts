@@ -9,7 +9,9 @@ async function bootstrap() {
   const config = app.get(ConfigService);
 
   app.setGlobalPrefix('api');
-  app.enableCors({ origin: config.get<string>('CORS_ORIGIN', 'http://localhost:3000') });
+  app.enableCors({
+    origin: config.get<string>('CORS_ORIGIN', 'http://localhost:3000'),
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({

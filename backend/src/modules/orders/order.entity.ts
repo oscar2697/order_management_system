@@ -49,7 +49,12 @@ export class Order {
    * Persisted (not computed on read) because item prices are a snapshot
    * taken at creation time — the total must never change retroactively.
    */
-  @Column({ type: 'decimal', precision: 12, scale: 2, transformer: decimalToNumber })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    transformer: decimalToNumber,
+  })
   total: number;
 
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
