@@ -39,6 +39,13 @@ That builds all three images and starts them with the correct dependency order
 (the backend waits until MySQL reports *healthy*, and applies the pending
 migrations on startup).
 
+Optional demo data (3 customers, 3 products, 3 orders in different states):
+
+```bash
+docker compose exec backend node dist/database/seed.js
+# idempotent: running it again is a no-op while data exists
+```
+
 | Piece     | URL                              |
 | --------- | -------------------------------- |
 | Web UI    | http://localhost:3000            |
@@ -66,6 +73,7 @@ docker compose up -d db
 cd backend
 npm install
 npm run migration:run      # optional: the app also runs migrations on boot
+npm run seed               # optional: demo data (idempotent)
 npm run start:dev
 
 # 3. Web UI
@@ -203,7 +211,7 @@ programmer. To keep it accountable rather than a black box:
 - **Secrets management** instead of `.env` files; compose credentials here are
   development defaults.
 - **CI** (lint + tests + build), structured request logging, and rate limiting.
-- **Seed script** for demo data.
+- Seeding beyond demo data (faker-based, configurable volumes).
 - Multi-worker backend behind a load balancer is trivial since the API is
   stateless.
 
